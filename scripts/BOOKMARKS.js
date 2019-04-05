@@ -95,7 +95,7 @@ const BOOKMARKS = (function(){
       values.url = $('.js-bookmark-url').val();
       values.description = $('.js-bookmark-description').val();
       values.rating = $('.js-bookmark-rating').val();
-      // $('#js-add-bookmark-form').trigger('reset');
+      $('#js-add-bookmark-form').trigger('reset');
       API.addBookmark(values)
         .then((newBookmark) => {
           STORE.addBookmark(newBookmark);
