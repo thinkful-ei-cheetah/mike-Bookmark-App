@@ -86,7 +86,7 @@ const BOOKMARKS = (function(){
   }
 
   // check form values and create an request filling in the request parameters
-  // listen for form submission, handle what to do when user submits form
+  // listen for form submission, handle what to do when user submit form
   function handleNewBookmarkSubmit(){
     $('#js-add-bookmark-form').submit(function(event){
       event.preventDefault();
