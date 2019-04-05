@@ -32,14 +32,12 @@ const API = (function(){
 
   // GET
   function getBookmarks(){
-    console.log('get bookmarks');
     return listApiFetch(`${BASE_URL}/bookmarks`);
   }
 
   // POST
   function addBookmark(object){
     const newItem = JSON.stringify(object);
-    console.log('add bookmarks');
     return listApiFetch(`${BASE_URL}/bookmarks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

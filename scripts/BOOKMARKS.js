@@ -21,15 +21,13 @@ const BOOKMARKS = (function(){
           <h4 class="panel-title">
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#${bookmark.id}" aria-expanded="true" aria-controls="${bookmark.id}">
               ${bookmark.title}
-              <span class="bookmark-rating">
-
-              </span>
+              <span class="bookmark-rating">${stars(bookmark.rating)}</span>
             </a>
           </h4>
         </div>
         <div id="${bookmark.id}" class="panel-collapse collapse" role="tabpanel">
           <div class="panel-body">
-            <p data-id="${bookmark.id}">${bookmark.desc}</p>
+            <p data-id="${bookmark.id}">${bookmark.description}</p>
             <p><a data-id="${bookmark.id}" target="_blank" href="${bookmark.url}">Visit Site</a></p>
             <button type="button" class="btn btn-danger js-bookmark-delete" data-id="${bookmark.id}">Delete</button>
           </div>
@@ -43,6 +41,16 @@ const BOOKMARKS = (function(){
   function generateBookmarksListString(bookmarksList){
     const bookmarks = bookmarksList.map(bookmark => generateBookmarkElement(bookmark));
     return bookmarks.join('');
+  }
+
+  function stars(numStar){
+    const starHTML = '<span class="glyphicon glyphicon-star"></span>';
+
+    let currentString = '';
+    for (let i = 0; i < numStar; i++){
+      currentString += starHTML;
+    }
+    return currentString;
   }
 
   function renderError(){
@@ -87,7 +95,7 @@ const BOOKMARKS = (function(){
       values.url = $('.js-bookmark-url').val();
       values.description = $('.js-bookmark-description').val();
       values.rating = $('.js-bookmark-rating').val();
-      $('#js-add-bookmark-form').trigger('reset');
+      // $('#js-add-bookmark-form').trigger('reset');
       API.addBookmark(values)
         .then((newBookmark) => {
           STORE.addBookmark(newBookmark);
