@@ -4,7 +4,7 @@
 
 const BOOKMARKS = (function(){
 
-  function generateError(message) {
+  function generateError(message){
     return `
       <section class="error-content">
         <button id="cancel-error">X</button>
@@ -45,13 +45,20 @@ const BOOKMARKS = (function(){
     return bookmarks.join('');
   }
 
-  function renderError() {
+  function renderError(){
     if (STORE.error) {
       const el = generateError(STORE.error);
       $('.error-container').html(el);
     } else {
       $('.error-container').empty();
     }
+  }
+
+  function closeError(){
+    $('.error-container').on('click', '#cancel-error', () => {
+      STORE.setError(null);
+      renderError();
+    });
   }
 
   function render(){
@@ -64,7 +71,7 @@ const BOOKMARKS = (function(){
     $('.js-bookmarks-list').html(generateBookmarksListString(bookmarks));
   }
 
-  function getItemIdFromElement(bookmark) {
+  function getItemIdFromElement(bookmark){
     return $(bookmark)
       .closest('.js-bookmark-element')
       .data('item-id');
@@ -75,9 +82,13 @@ const BOOKMARKS = (function(){
   function handleNewBookmarkSubmit(){
     $('#js-add-bookmark-form').submit(function(event){
       event.preventDefault();
-      const newBookmarkName = $('.form-group').val();
-      $('.form-group').val('');
-      API.addBookmark(newBookmarkName)
+      const values = {};
+      values.title = $('.js-bookmark-title').val();
+      values.url = $('.js-bookmark-url').val();
+      values.description = $('.js-bookmark-description').val();
+      values.rating = $('.js-bookmark-rating').val();
+      $('#js-add-bookmark-form').trigger('reset');
+      API.addBookmark(values)
         .then((newBookmark) => {
           STORE.addBookmark(newBookmark);
           render();
@@ -108,7 +119,7 @@ const BOOKMARKS = (function(){
   }
 
   // filter using minimum rating dropdown
-  function handleMinimumRatingFilter() {
+  function handleMinimumRatingFilter(){
     $('.js-bookmark-rating-filter').on('change', event => {
       let rating = $(event.target).val();
       STORE.minimumRating = rating;
@@ -117,6 +128,7 @@ const BOOKMARKS = (function(){
   }
 
   function bindEventListeners(){
+    closeError();
     handleNewBookmarkSubmit();
     handleBookmarkDeleteClicked();
     handleMinimumRatingFilter();

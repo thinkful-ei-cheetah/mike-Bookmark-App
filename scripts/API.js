@@ -50,7 +50,6 @@ const API = (function(){
   // PATCH
   function editBookmark(id, updateData){
     const newData = JSON.stringify(updateData);
-    console.log('edit bookmarks');
     return listApiFetch(`${BASE_URL}/bookmarks/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -60,7 +59,6 @@ const API = (function(){
 
   // DELETE
   function deleteBookmark(id){
-    console.log('delete bookmarks');
     return fetch(`${BASE_URL}/bookmarks/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
