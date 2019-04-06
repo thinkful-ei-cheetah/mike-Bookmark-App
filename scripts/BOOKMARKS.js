@@ -27,7 +27,7 @@ const BOOKMARKS = (function(){
         </div>
         <div id="${bookmark.id}" class="panel-collapse collapse" role="tabpanel">
           <div class="panel-body">
-            <p data-id="${bookmark.id}">${bookmark.description}</p>
+            <p data-id="${bookmark.id}">${bookmark.desc}</p>
             <p><a data-id="${bookmark.id}" target="_blank" href="${bookmark.url}">Visit Site</a></p>
             <button type="button" class="btn btn-danger js-bookmark-delete" data-id="${bookmark.id}">Delete</button>
           </div>
@@ -93,7 +93,7 @@ const BOOKMARKS = (function(){
       const values = {};
       values.title = $('.js-bookmark-title').val();
       values.url = $('.js-bookmark-url').val();
-      values.description = $('.js-bookmark-description').val();
+      values.desc = $('.js-bookmark-description').val();
       values.rating = $('.js-bookmark-rating').val();
       $('#js-add-bookmark-form').trigger('reset');
       API.addBookmark(values)
