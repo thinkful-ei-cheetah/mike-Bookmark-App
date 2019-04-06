@@ -24,6 +24,11 @@ const STORE = (function(){
     this.bookmarks = this.bookmarks.filter(bookmark => bookmark.id !== id);
   };
 
+  const findAndEdit = function(id, isEditing){
+    const text = this.findByID(id);
+    text.isEditing = isEditing;
+  };
+
   return {
     bookmarks: [],
     minimumRating: 0,
@@ -33,7 +38,7 @@ const STORE = (function(){
     findById,
     findAndDelete,
     findAndUpdate,
-
+    findAndEdit,
   };
 
 }());
